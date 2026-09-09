@@ -7,19 +7,17 @@ permissions:
  contents: read
  packages: write
 jobs:
- build-and-push:
-  runs_on: ubuntu-latest
-  steps:
-  - uses: actions/checkout@v6
-  -name: login into container registry
-   uses: docker/login-action@v3
-   with:
-    registry: ghcr.io 
-    username: ${{ github.actor }}
-    password: ${{ secrets.GITHUB_TOKEN }}
-  -name: Build and push docker image
-   run: |
-     docker build . --tag ghcr.io/bsrisruthi/skills-publish-docker-images/stackoverflown:main
-     docker push ghcr.io/bsrisruthi/skills-publish-docker-images/stackoverflown:main
-  
- 
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
+        run: |
+          docker build . --tag ghcr.io/bsrisruthi/skills-publish-docker-images/stackoverflown:main
+          docker push ghcr.io/bsrisruthi/skills-publish-docker-images/stackoverflown:main
